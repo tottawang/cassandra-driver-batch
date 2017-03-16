@@ -1,15 +1,8 @@
 buildscript {
 	ext {
 		springBootVersion = '1.3.2.RELEASE'
-		coverageFilesDir = 'build/coverage-files'
-		testNGVersion = '6.8.21'
-		assertj = '3.3.0'
-		mockitoVersion = '1.8.4' 
 		jerseyVersion = '2.23.1'
 		restAssuredVersion = '2.5.0'
-		swaggerJerseyVersion = '1.5.3'
-		serenityVersion = '1.1.24'
-		serenityJbehave = '1.5.0'
 		jbehaveVersion = '4.0.4'
 		assertjVersion = '2.2.0'
 		jsonPath = '2.1.0'
@@ -67,7 +60,6 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-jersey:${springBootVersion}")
 	compile("com.datastax.cassandra:cassandra-driver-core:${cassandraDriver}")
     compile("com.datastax.cassandra:cassandra-driver-mapping:${cassandraDriver}")
-	compile("io.swagger:swagger-jersey2-jaxrs:${swaggerJerseyVersion}")
 	compile("org.apache.httpcomponents:httpclient:4.5.2")
 	compile("org.apache.httpcomponents:httpcore:4.4.4")
 	compile("com.jayway.jsonpath:json-path:${jsonPath}")
