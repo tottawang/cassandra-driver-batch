@@ -10,7 +10,11 @@ buildscript {
 		jerseySecurityVersion = '2.17'
 		guavaVersion = '19.0'
 		springContextSupport = '4.2.6.RELEASE'
-		cassandraDriver='3.1.0'
+		// https://groups.google.com/a/lists.datastax.com/forum/#!topic/java-driver-user/bo-Uhr2g_s4
+		// https://datastax-oss.atlassian.net/browse/JAVA-1310
+		// On 3.0.1 mapper started mapping getter methods as well as fields which is not proper change
+		// hence we keep using 3.0.7 to avoid the noise, and wait a better and complete solution on 3.0.2
+		cassandraDriver='3.0.7'
 	}
 	repositories {
 		mavenCentral()

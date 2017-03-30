@@ -21,6 +21,7 @@ public class Product {
   @ClusteringColumn
   private UUID productid;
 
+  @Transient
   private String text;
 
   public Product(String itemid, int version, UUID productid) {
@@ -54,7 +55,7 @@ public class Product {
     this.itemid = _itemid;
   }
 
-  @Transient
+  // @Transient
   public ProductKey getProductKey() {
     return new ProductKey(this.itemid, this.version, this.productid);
   }
@@ -65,7 +66,7 @@ public class Product {
     this.itemid = productKey.getItemid();
   }
 
-  @Transient
+
   public String getText() {
     return text;
   }
