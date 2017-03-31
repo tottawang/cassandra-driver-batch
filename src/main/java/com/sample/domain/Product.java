@@ -1,8 +1,10 @@
 package com.sample.domain;
 
+import java.util.Map;
 import java.util.UUID;
 
 import com.datastax.driver.mapping.annotations.ClusteringColumn;
+import com.datastax.driver.mapping.annotations.Column;
 import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 import com.datastax.driver.mapping.annotations.Transient;
@@ -21,14 +23,18 @@ public class Product {
   @ClusteringColumn
   private UUID productid;
 
+  @Column(name = "scopes")
+  private Map<String, String> scopes;
+
   @Transient
   private String text;
 
-  public Product(String itemid, int version, UUID productid) {
+  public Product(String itemid, int version, UUID productid, Map<String, String> scopes) {
     this.itemid = itemid;
     this.version = version;
     this.productid = productid;
     this.text = "dummy";
+    this.scopes = scopes;
   }
 
   public UUID getProductid() {
@@ -55,7 +61,17 @@ public class Product {
     this.itemid = _itemid;
   }
 
-  // @Transient
+  public Map<String, String> getScopes() {
+    if (scopes.isEmpty())
+      return null;
+    else
+      return scopes;
+  }
+
+  public void setScopes(Map<String, String> scopes) {
+    this.scopes = scopes;
+  }
+
   public ProductKey getProductKey() {
     return new ProductKey(this.itemid, this.version, this.productid);
   }
@@ -65,7 +81,6 @@ public class Product {
     this.version = productKey.getVersion();
     this.itemid = productKey.getItemid();
   }
-
 
   public String getText() {
     return text;

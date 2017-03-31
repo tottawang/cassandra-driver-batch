@@ -1,8 +1,10 @@
 package com.sample.domain;
 
+import java.util.Map;
 import java.util.UUID;
 
 import com.datastax.driver.mapping.annotations.ClusteringColumn;
+import com.datastax.driver.mapping.annotations.Column;
 import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 import com.sample.conf.SecondaryTable;
@@ -20,10 +22,14 @@ public class ProductById {
   @ClusteringColumn
   private int version;
 
-  public ProductById(String itemid, int version, UUID productid) {
+  @Column(name = "scopes")
+  private Map<String, String> scopes;
+
+  public ProductById(String itemid, int version, UUID productid, Map<String, String> scopes) {
     this.itemid = itemid;
     this.version = version;
     this.productid = productid;
+    this.scopes = scopes;
   }
 
   public UUID getProductid() {
@@ -48,5 +54,16 @@ public class ProductById {
 
   public void setItemid(String _itemid) {
     this.itemid = _itemid;
+  }
+
+  public Map<String, String> getScopes() {
+    if (scopes.isEmpty())
+      return null;
+    else
+      return scopes;
+  }
+
+  public void setScopes(Map<String, String> scopes) {
+    this.scopes = scopes;
   }
 }
