@@ -46,6 +46,7 @@ public class CassandraConfiguration {
     // register enum data type
     CodecRegistry codecRegistry = CodecRegistry.DEFAULT_INSTANCE;
     codecRegistry.register(new EnumNameCodec<ProductType>(ProductType.class));
+    codecRegistry.register(new JsonCodec());
   }
 
   @Bean(name = CASSANDRA_CLUSTER, autowire = Autowire.BY_NAME)

@@ -8,7 +8,9 @@ import com.datastax.driver.mapping.annotations.Column;
 import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
 import com.datastax.driver.mapping.annotations.Transient;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.sample.conf.EnableBatch;
+import com.sample.conf.JsonCodec;
 
 @Table(name = "products")
 @EnableBatch
@@ -29,17 +31,21 @@ public class Product {
   @Column(name = "type")
   private ProductType type;
 
+  @Column(name = "attributes", codec = JsonCodec.class)
+  private JsonNode attributes;
+
   @Transient
   private String text;
 
   public Product(String itemid, int version, UUID productid, Map<String, String> scopes,
-      ProductType type) {
+      ProductType type, JsonNode attributes) {
     this.itemid = itemid;
     this.version = version;
     this.productid = productid;
     this.text = "dummy";
     this.scopes = scopes;
     this.type = type;
+    this.attributes = attributes;
   }
 
   public UUID getProductid() {
@@ -101,6 +107,14 @@ public class Product {
 
   public void setText(String text) {
     this.text = text;
+  }
+
+  public JsonNode getAttributes() {
+    return attributes;
+  }
+
+  public void setAttributes(JsonNode attributes) {
+    this.attributes = attributes;
   }
 
 }

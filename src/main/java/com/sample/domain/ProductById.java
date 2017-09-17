@@ -7,6 +7,8 @@ import com.datastax.driver.mapping.annotations.ClusteringColumn;
 import com.datastax.driver.mapping.annotations.Column;
 import com.datastax.driver.mapping.annotations.PartitionKey;
 import com.datastax.driver.mapping.annotations.Table;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.sample.conf.JsonCodec;
 import com.sample.conf.SecondaryTable;
 
 @Table(name = "product_by_id")
@@ -28,13 +30,19 @@ public class ProductById {
   @Column(name = "type")
   private ProductType type;
 
+  @Column(name = "attributes", codec = JsonCodec.class)
+  private JsonNode attributes;
+
+  public ProductById() {}
+
   public ProductById(String itemid, int version, UUID productid, Map<String, String> scopes,
-      ProductType type) {
+      ProductType type, JsonNode attributes) {
     this.itemid = itemid;
     this.version = version;
     this.productid = productid;
     this.scopes = scopes;
     this.type = type;
+    this.attributes = attributes;
   }
 
   public UUID getProductid() {
@@ -78,5 +86,13 @@ public class ProductById {
 
   public void setType(ProductType type) {
     this.type = type;
+  }
+
+  public JsonNode getAttributes() {
+    return attributes;
+  }
+
+  public void setAttributes(JsonNode attributes) {
+    this.attributes = attributes;
   }
 }
