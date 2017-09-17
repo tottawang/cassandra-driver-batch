@@ -1,17 +1,24 @@
 package com.sample.conf;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.CodecRegistry;
 import com.datastax.driver.core.ConsistencyLevel;
 import com.datastax.driver.core.QueryOptions;
 import com.datastax.driver.core.Session;
+import com.datastax.driver.extras.codecs.enums.EnumNameCodec;
 import com.datastax.driver.mapping.MappingManager;
+import com.sample.domain.ProductType;
 
 @Configuration
+@Component
 public class CassandraConfiguration {
 
   public static final String CASSANDRA_CLUSTER = "sample.cluster";
@@ -33,6 +40,13 @@ public class CassandraConfiguration {
 
   @Value("${CASSANDRA_REPLICATION_OPTIONS}")
   private String CASSANDRA_REPLICATION_OPTIONS;
+
+  @PostConstruct
+  public void init() throws Exception {
+    // register enum data type
+    CodecRegistry codecRegistry = CodecRegistry.DEFAULT_INSTANCE;
+    codecRegistry.register(new EnumNameCodec<ProductType>(ProductType.class));
+  }
 
   @Bean(name = CASSANDRA_CLUSTER, autowire = Autowire.BY_NAME)
   public Cluster cassandraCluster() {

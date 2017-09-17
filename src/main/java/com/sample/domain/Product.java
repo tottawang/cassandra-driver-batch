@@ -26,15 +26,20 @@ public class Product {
   @Column(name = "scopes")
   private Map<String, String> scopes;
 
+  @Column(name = "type")
+  private ProductType type;
+
   @Transient
   private String text;
 
-  public Product(String itemid, int version, UUID productid, Map<String, String> scopes) {
+  public Product(String itemid, int version, UUID productid, Map<String, String> scopes,
+      ProductType type) {
     this.itemid = itemid;
     this.version = version;
     this.productid = productid;
     this.text = "dummy";
     this.scopes = scopes;
+    this.type = type;
   }
 
   public UUID getProductid() {
@@ -70,6 +75,14 @@ public class Product {
 
   public void setScopes(Map<String, String> scopes) {
     this.scopes = scopes;
+  }
+
+  public ProductType getType() {
+    return type;
+  }
+
+  public void setType(ProductType type) {
+    this.type = type;
   }
 
   public ProductKey getProductKey() {

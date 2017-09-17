@@ -3,6 +3,7 @@ CREATE TABLE if not exists products (
     version int,
     productid uuid,
     scopes map<text, text>,
+    type text,
     PRIMARY KEY ((itemid, version), productid)
 );
 
@@ -11,6 +12,7 @@ CREATE TABLE if not exists product_by_id (
     version int,
     productid uuid,
     scopes map<text, text>,
+    type text,
     PRIMARY KEY ((productid, itemid), version)
 );
 

@@ -50,11 +50,12 @@ public class ProductRepository {
     Map<String, String> scopes = new HashMap<String, String>();
     scopes.put("name", "value");
     UUID productId = UUID.randomUUID();
-    Product product = new Product("new item id", 1, productId, scopes);
+    Product product = new Product("new item id", 1, productId, scopes, ProductType.Rocket);
     Mapper<Product> mapper = manager.mapper(Product.class);
     mapper.save(product);
 
-    ProductById productById = new ProductById("new item id", 1, productId, scopes);
+    ProductById productById =
+        new ProductById("new item id", 1, productId, scopes, ProductType.Rocket);
     Mapper<ProductById> mapperForProductById = manager.mapper(ProductById.class);
     mapperForProductById.save(productById);
   }
@@ -66,8 +67,9 @@ public class ProductRepository {
     Map<String, String> scopes = new HashMap<String, String>();
     scopes.put("name", "value");
     UUID productId = UUID.randomUUID();
-    Product product = new Product("new item id", 1, productId, scopes);
-    ProductById productById = new ProductById("new item id", 1, productId, scopes);
+    Product product = new Product("new item id", 1, productId, scopes, ProductType.Rocket);
+    ProductById productById =
+        new ProductById("new item id", 1, productId, scopes, ProductType.Rocket);
     Collection<?> secondaryTables = new HashSet<>(Arrays.asList(productById));
     batchProcessor.executeBatchInsert(product, secondaryTables);
   }

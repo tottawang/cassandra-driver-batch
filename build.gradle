@@ -64,6 +64,7 @@ dependencies {
 	compile("org.springframework.boot:spring-boot-starter-jersey:${springBootVersion}")
 	compile("com.datastax.cassandra:cassandra-driver-core:${cassandraDriver}")
     compile("com.datastax.cassandra:cassandra-driver-mapping:${cassandraDriver}")
+    compile("com.datastax.cassandra:cassandra-driver-extras:${cassandraDriver}")
 	compile("org.apache.httpcomponents:httpclient:4.5.2")
 	compile("org.apache.httpcomponents:httpcore:4.4.4")
 	compile("com.jayway.jsonpath:json-path:${jsonPath}")
